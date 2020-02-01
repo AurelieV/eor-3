@@ -15,16 +15,10 @@ export default {
       async handler(code) {
         try {
           await this.$auth.processJudgeAppsToken(code)
-          // this.$store.dispatch(PUSH_NOTIFICATION, {
-          //   message: 'Authentification successfull',
-          //   type: 'success',
-          // })
+          this.$notify.success('Authentification successfull')
           this.$router.push({ name: 'main' })
         } catch (err) {
-          // this.$store.dispatch(PUSH_NOTIFICATION, {
-          //   message: 'Authentification failed',
-          //   type: 'error',
-          // })
+          this.$notify.error('Authentification failed')
           this.$router.push({ name: 'login' })
         }
       },
