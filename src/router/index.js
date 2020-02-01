@@ -6,8 +6,18 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
+  },
+  {
+    path: '/authent-redirect',
+    name: 'authent-redirect',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/Authentication.vue'),
+  },
+  {
     path: '/',
-    name: 'home',
+    name: 'main',
     component: Home,
   },
 ]

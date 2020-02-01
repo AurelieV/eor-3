@@ -1,7 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+
+// Configuration
+import { openIdSettings } from '@/../config/judgeapps.config'
+
+// Services
+import { firebaseAuth } from '@/services/firebase'
+import router from '@/router'
+import store from '@/store'
+
+// Plugins
+import auth from './plugins/authentification'
+Vue.use(auth, {
+  store,
+  firebaseAuth,
+  openIdSettings,
+})
 
 Vue.config.productionTip = false
 
