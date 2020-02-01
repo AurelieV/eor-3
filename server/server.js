@@ -10,6 +10,7 @@ admin.initializeApp({
   credential: admin.credential.cert(config.firebaseKey),
   databaseURL: config.databaseURL,
 })
+const db = admin.firestore()
 
 const app = express()
 app.use(cors)
@@ -38,13 +39,18 @@ app.post('/authenticate', async function(req, res) {
       await admin.auth().createUser({ uid })
     }
     await admin.auth().setCustomUserClaims(uid, info)
-    // await admin
-    //   .database()
-    //   .ref(`users/${uid}/judgeapps`)
-    //   .set({
-    //     ...info,
-    //     id: uid,
-    //   })
+    await db
+      .collection('users')
+      .doc(uid)
+      .set(
+        {
+          judgeapps: {
+            ...info,
+            id: uid,
+          },
+        },
+        { merge: true }
+      )
     const token = await admin.auth().createCustomToken(uid)
 
     return res.json({ token })
